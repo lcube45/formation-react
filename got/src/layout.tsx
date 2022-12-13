@@ -3,7 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/home';
 import Person from './pages/person';
 import PersonsPage from './pages/persons';
-import './style.css'
+import { MyFooter } from './styles';
 
 interface LayoutProps {
 
@@ -19,7 +19,7 @@ const Detail: React.FC<LayoutProps> = (props: LayoutProps) => {
                 <Route path="/person/:id" element={<Person />} />
             </Routes>
         </header>
-        <footer className='my-footer'>footer</footer>
+        <MyFooter>footer</MyFooter>
         </>
     )
 }
