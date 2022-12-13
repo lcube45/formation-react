@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import List from './features/list';
+import { BrowserRouter } from 'react-router-dom';
+import Layout from './layout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -8,7 +9,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <List title="Ma liste"/>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

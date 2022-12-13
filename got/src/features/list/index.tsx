@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Data from '../../data/data';
 import Character from '../../data/model';
 import Detail from '../detail';
-import Basic from '../form/basic';
 import MyForm from '../form';
 
 interface ListProps {
