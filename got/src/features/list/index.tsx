@@ -19,8 +19,8 @@ const List: React.FC<ListProps> = (props: ListProps) => {
       setPersons(items)
     }, [])
 
-    const addCharacter = (name: string, img: string) => {
-      const c: Character = {
+    const addPerson = (name: string, img: string) => {
+      const person: Character = {
         id: persons.length,
         name,
         img,
@@ -28,14 +28,14 @@ const List: React.FC<ListProps> = (props: ListProps) => {
         biography: 'jjj'
       }
 
-      setPersons(persons.concat([c]));
+      setPersons(persons.concat([person]));
     }
 
     return (
         <>
           <h1>{props.title}</h1>
 
-          <Basic addCharacter={addCharacter} />
+          <Basic addPerson={addPerson} />
 
           {selectedPerson && 
             <Detail character={selectedPerson} />          

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface BasicProps {
-    addCharacter: (name: string, img: string) => void
+    addPerson: (name: string, img: string) => void
 }
 
-const Basic: React.FC<BasicProps> = ({addCharacter}) => {
+const Basic: React.FC<BasicProps> = ({addPerson}) => {
 
     const [name, setName] = useState('')
     const [img, setImg] = useState('')
@@ -12,7 +12,7 @@ const Basic: React.FC<BasicProps> = ({addCharacter}) => {
     const nameInputRef = useRef<HTMLInputElement>(null)
 
     const onValidateForm = () => {
-        addCharacter(name, img)
+        addPerson(name, img)
     }
 
     useEffect(() => {
