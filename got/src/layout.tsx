@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/home';
-import TestPage from './pages/test';
+import Person from './pages/person';
+import PersonsPage from './pages/persons';
 
 interface LayoutProps {
 
@@ -13,16 +14,11 @@ const Detail: React.FC<LayoutProps> = (props: LayoutProps) => {
         <header>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/test" element={<TestPage />} />
+                <Route path="/persons" element={<PersonsPage />} />
+                <Route path="/person/:id" element={<Person />} />
             </Routes>
         </header>
-        <aside>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/test">Test</Link></li>
-            </ul>
-        </aside>
-        <footer>footer</footer>
+        <footer style={{background: "red", padding: "10px"}}>footer</footer>
         </>
     )
 }

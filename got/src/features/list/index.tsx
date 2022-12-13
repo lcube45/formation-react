@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Data from '../../data/data';
 import Character from '../../data/model';
 import Detail from '../detail';
@@ -19,11 +20,11 @@ const List: React.FC<ListProps> = (props: ListProps) => {
       setPersons(items)
     }, [])
 
-    const addPerson = (name: string, img: string) => {
+    const addPerson = (name: string) => {
       const person: Character = {
         id: persons.length,
         name,
-        img,
+        img: `https://picsum.photos/100/100?random=${persons.length}`,
         title: 'kkk',
         biography: 'jjj'
       }
@@ -38,15 +39,14 @@ const List: React.FC<ListProps> = (props: ListProps) => {
           <MyForm addPerson={addPerson} />
 
           {selectedPerson && 
-            <Detail character={selectedPerson} />          
+            <Detail person={selectedPerson} />          
           }
 
           {persons.map(item => {
             return (
               <div key={item.id} onClick={() => setSelectedPerson(item)}>
-                <h2>id: {item.id}</h2>
-                <h2>name: {item.name}</h2>
-                <img src={item.img} />
+                <h2>{item.name}</h2>
+                <Link to={`/person/${item.id}`}><img src={item.img} /></Link>
                 <hr />
               </div>
             );
