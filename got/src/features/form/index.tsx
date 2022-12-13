@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import Data from '../../data/data';
 
 interface FormProps {
-
+    addPerson: (name: string, img: string) => void
 }
 
 const MyForm: React.FC<FormProps> = (props: FormProps) => {
@@ -17,9 +17,7 @@ const MyForm: React.FC<FormProps> = (props: FormProps) => {
             img: '',
         },
         onSubmit: values => {
-            //console.log(JSON.stringify(values, null, 2));
-            data.addPerson(values);
-            console.log(data.persons);
+            props.addPerson(values.name, values.img)
         },
     });
 

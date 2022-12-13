@@ -3,6 +3,7 @@ import Data from '../../data/data';
 import Character from '../../data/model';
 import Detail from '../detail';
 import Basic from '../form/basic';
+import MyForm from '../form';
 
 interface ListProps {
   title: string
@@ -35,7 +36,7 @@ const List: React.FC<ListProps> = (props: ListProps) => {
         <>
           <h1>{props.title}</h1>
 
-          <Basic addPerson={addPerson} />
+          <MyForm addPerson={addPerson} />
 
           {selectedPerson && 
             <Detail character={selectedPerson} />          
