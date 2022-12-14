@@ -17,7 +17,7 @@ const Detail: React.FC<LayoutProps> = (props: LayoutProps) => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/persons" element={<PersonsPage />} />
-                <Route path="/person/:id" element={<Person />} />
+                <Route path="/person/:id" element={<Person />} errorElement={<HomePage />} />
                 <Route path="/counter" element={<CounterPage />} />
             </Routes>
         </header>

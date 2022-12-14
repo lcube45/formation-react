@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import Service from '../../service/service';
 import Person from '../../service/model';
 import MyForm from '../form';
-import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { addPersons, fetchPersons } from '../../reducers/persons';
 
 interface ListProps {
   title: string
@@ -11,25 +12,13 @@ interface ListProps {
 
 const List: React.FC<ListProps> = (props: ListProps) => {
 
-    const [persons, setPersons] = useState<Person[]>([])
-    const [loading, setLoading] = useState(true)
+    const dispatch = useAppDispatch()
+    const { persons, isFetching} = useAppSelector((state) => state.persons)
 
     useEffect(() => {
-      axios.get<Person[]>('https://thronesapi.com/api/v2/Characters')
-      .then(response => {
-        const persons: Person[] =  response.data.map((item: any) => ({
-                  id: item.id,
-                  name: item.firstName,
-                  img: item.imageUrl,
-                  title: item.title,
-                  biography: item.family
-          }))
-          setPersons(persons)
-          setLoading(false)
-      })
-      .catch(error => {
-          console.log(error)
-      })
+      if(persons.length == 0) {
+        dispatch(fetchPersons());
+      }
     }, [])
 
     const addPerson = (name: string) => {
@@ -40,7 +29,8 @@ const List: React.FC<ListProps> = (props: ListProps) => {
         title: 'kkk',
         biography: 'jjj'
       }
-      setPersons(persons.concat([person]));
+
+      dispatch(addPersons([person]))
     }
 
     return (
@@ -49,9 +39,9 @@ const List: React.FC<ListProps> = (props: ListProps) => {
 
           <MyForm addPerson={addPerson} />
 
-          {loading && 'Loading...'}
+          {isFetching && 'Loading...'}
 
-          {!loading && persons.map((item, key) => {
+          {!isFetching && persons.map((item, key) => {
             return (
               <div key={key}>
                 <h2>{item.name}</h2>

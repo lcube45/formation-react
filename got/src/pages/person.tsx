@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Data from '../service/service';
 import Character from '../service/model';
 import Detail from '../features/detail';
 import axios from 'axios';
 import Person from '../service/model';
+import { useAppDispatch, useAppSelector } from '../store';
+import { getPersonById } from '../reducers/persons';
 
 interface PersonPageProps {
 
@@ -12,28 +14,20 @@ interface PersonPageProps {
 
 const PersonPage: React.FC<PersonPageProps> = (props: PersonPageProps) => {
 
-    const [person, setPerson] = useState<Person>()
+    const dispatch = useAppDispatch()
+    const { person, isFetching } = useAppSelector((state) => state.persons)
     const {id} = useParams()
 
-    axios.get('https://thronesapi.com/api/v2/Characters/' + id)
-      .then(response => {
-        const person: Person = {
-            id: response.data.id,
-            name: response.data.firstName,
-            img: response.data.imageUrl,
-            title: response.data.title,
-            biography: response.data.family
+    useEffect(() => {        
+        if(Number(id) != person?.id) {
+            dispatch(getPersonById(Number(id)));
         }
-        setPerson(person)
-      })
-      .catch(error => {
-          console.log(error)
-      })
+    }, [id])
 
     return(
         <>
         <h1>Détail d'une personne</h1>
-        { person &&
+        { person && !isFetching && 
             <Detail person={person} />
         }
         <p><Link to="/persons">Back to list</Link></p>
