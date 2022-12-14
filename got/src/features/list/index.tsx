@@ -12,11 +12,12 @@ interface ListProps {
 const List: React.FC<ListProps> = (props: ListProps) => {
 
     const [persons, setPersons] = useState<Person[]>([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-      axios.get('https://thronesapi.com/api/v2/Characters')
+      axios.get<Person[]>('https://thronesapi.com/api/v2/Characters')
       .then(response => {
-        const persons =  response.data.map((item: any) => ({
+        const persons: Person[] =  response.data.map((item: any) => ({
                   id: item.id,
                   name: item.firstName,
                   img: item.imageUrl,
@@ -24,6 +25,7 @@ const List: React.FC<ListProps> = (props: ListProps) => {
                   biography: item.family
           }))
           setPersons(persons)
+          setLoading(false)
       })
       .catch(error => {
           console.log(error)
@@ -47,7 +49,9 @@ const List: React.FC<ListProps> = (props: ListProps) => {
 
           <MyForm addPerson={addPerson} />
 
-          {persons.map((item, key) => {
+          {loading && 'Loading...'}
+
+          {!loading && persons.map((item, key) => {
             return (
               <div key={key}>
                 <h2>{item.name}</h2>

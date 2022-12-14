@@ -17,7 +17,7 @@ const PersonPage: React.FC<PersonPageProps> = (props: PersonPageProps) => {
 
     axios.get('https://thronesapi.com/api/v2/Characters/' + id)
       .then(response => {
-        const person = {
+        const person: Person = {
             id: response.data.id,
             name: response.data.firstName,
             img: response.data.imageUrl,
