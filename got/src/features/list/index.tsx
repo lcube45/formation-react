@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Data from '../../data/data';
-import Character from '../../data/model';
-import Detail from '../detail';
+import Service from '../../service/service';
+import Person from '../../service/model';
 import MyForm from '../form';
+import axios from 'axios';
 
 interface ListProps {
   title: string
@@ -11,24 +11,33 @@ interface ListProps {
 
 const List: React.FC<ListProps> = (props: ListProps) => {
 
-    const [persons, setPersons] = useState<Character[]>([])
-    const [selectedPerson, setSelectedPerson] = useState<Character>();
+    const [persons, setPersons] = useState<Person[]>([])
 
     useEffect(() => {
-      const data = new Data();
-      const items = data.persons;
-      setPersons(items)
+      axios.get('https://thronesapi.com/api/v2/Characters')
+      .then(response => {
+        const persons =  response.data.map((item: any) => ({
+                  id: item.id,
+                  name: item.firstName,
+                  img: item.imageUrl,
+                  title: item.title,
+                  biography: item.family
+          }))
+          setPersons(persons)
+      })
+      .catch(error => {
+          console.log(error)
+      })
     }, [])
 
     const addPerson = (name: string) => {
-      const person: Character = {
-        id: persons.length,
+      const person: Person = {
+        id: 1,
         name,
-        img: `https://picsum.photos/100/100?random=${persons.length}`,
+        img: `https://picsum.photos/100/100?random=${Math.random()}`,
         title: 'kkk',
         biography: 'jjj'
       }
-
       setPersons(persons.concat([person]));
     }
 
@@ -38,15 +47,11 @@ const List: React.FC<ListProps> = (props: ListProps) => {
 
           <MyForm addPerson={addPerson} />
 
-          {selectedPerson && 
-            <Detail person={selectedPerson} />          
-          }
-
-          {persons.map(item => {
+          {persons.map((item, key) => {
             return (
-              <div key={item.id} onClick={() => setSelectedPerson(item)}>
+              <div key={key}>
                 <h2>{item.name}</h2>
-                <Link to={`/person/${item.id}`}><img src={item.img} /></Link>
+                <Link to={`/person/${item.id}`}><img src={item.img} width="50" height="50" /></Link>
                 <hr />
               </div>
             );

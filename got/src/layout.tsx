@@ -19,7 +19,7 @@ const Detail: React.FC<LayoutProps> = (props: LayoutProps) => {
                 <Route path="/person/:id" element={<Person />} />
             </Routes>
         </header>
-        <MyFooter>footer</MyFooter>
+        <MyFooter color="blue">footer</MyFooter>
         </>
     )
 }

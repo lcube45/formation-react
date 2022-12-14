@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Data from '../data/data';
-import Character from '../data/model';
+import Data from '../service/service';
+import Character from '../service/model';
 import Detail from '../features/detail';
+import axios from 'axios';
+import Person from '../service/model';
 
 interface PersonPageProps {
 
@@ -10,9 +12,23 @@ interface PersonPageProps {
 
 const PersonPage: React.FC<PersonPageProps> = (props: PersonPageProps) => {
 
+    const [person, setPerson] = useState<Person>()
     const {id} = useParams()
-    const data = new Data()
-    const person = data.persons.find(e => e.id == Number(id))
+
+    axios.get('https://thronesapi.com/api/v2/Characters/' + id)
+      .then(response => {
+        const person = {
+            id: response.data.id,
+            name: response.data.firstName,
+            img: response.data.imageUrl,
+            title: response.data.title,
+            biography: response.data.family
+        }
+        setPerson(person)
+      })
+      .catch(error => {
+          console.log(error)
+      })
 
     return(
         <>

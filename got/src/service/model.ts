@@ -1,4 +1,4 @@
-export default interface Character {
+export default interface Person {
     id: number
     name: string
     img: string
