@@ -19,7 +19,7 @@ const List: React.FC<ListProps> = (props: ListProps) => {
       if(persons.length == 0) {
         dispatch(fetchPersons());
       }
-    }, [])
+    }, [persons])
 
     const addPerson = (name: string) => {
       const person: Person = {

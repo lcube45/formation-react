@@ -10,12 +10,10 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-
     <Provider store={store}>
       <BrowserRouter>
         <Layout />
       </BrowserRouter>
     </Provider>
-
 );
 
