@@ -5,33 +5,33 @@ interface state {
 }
 
 const initialState: state = {
-    counterValue: Number(localStorage.getItem('counter')) || 0
+  counterValue: Number(localStorage.getItem('counter')) || 0
 }
 
-const updateCounter = (count: number): state => {
-    localStorage.setItem('counter', count.toString());
-  
-    return ({
-      counterValue: count
-    });
-  };
+export const updateCounter = (count: number): state => {
+  localStorage.setItem('counter', count.toString());
 
-  const counterSlice = createSlice({
-    name: 'counter',
-    initialState: initialState,
-    reducers: {
-      increment: (state) =>
-        updateCounter(state.counterValue + 1),
-      decrement: (state) =>
-        updateCounter(state.counterValue - 1),
-      incrementByAmount: (state, action: PayloadAction<number>) =>
-        updateCounter(state.counterValue + action.payload),
-      decrementByAmount: (state, action: PayloadAction<number>) =>
-        updateCounter(state.counterValue - action.payload),
-      resetCounter: () => updateCounter(0)
-    }
+  return ({
+    counterValue: count
   });
+};
 
-  export const { increment, decrement, incrementByAmount, decrementByAmount, resetCounter } = counterSlice.actions;
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: initialState,
+  reducers: {
+    increment: (state) =>
+      updateCounter(state.counterValue + 1),
+    decrement: (state) =>
+      updateCounter(state.counterValue - 1),
+    incrementByAmount: (state, action: PayloadAction<number>) =>
+      updateCounter(state.counterValue + action.payload),
+    decrementByAmount: (state, action: PayloadAction<number>) =>
+      updateCounter(state.counterValue - action.payload),
+    resetCounter: () => updateCounter(0)
+  }
+});
 
-  export default counterSlice.reducer;
+export const { increment, decrement, incrementByAmount, decrementByAmount, resetCounter } = counterSlice.actions;
+
+export default counterSlice.reducer;
