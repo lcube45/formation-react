@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Service from '../../service/service';
 import Person from '../../service/model';
 import MyForm from '../form';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -16,10 +15,10 @@ const List: React.FC<ListProps> = (props: ListProps) => {
     const { persons, isFetching} = useAppSelector((state) => state.persons)
 
     useEffect(() => {
-      if(persons.length == 0) {
+      if(persons.length === 0) {
         dispatch(fetchPersons());
       }
-    }, [persons])
+    }, [persons.length])
 
     const addPerson = (name: string) => {
       const person: Person = {
@@ -45,7 +44,7 @@ const List: React.FC<ListProps> = (props: ListProps) => {
             return (
               <div key={key}>
                 <h2>{item.name}</h2>
-                <Link to={`/person/${item.id}`}><img src={item.img} width="50" height="50" /></Link>
+                <Link to={`/person/${item.id}`}><img src={item.img} width="50" height="50" alt="illustration" /></Link>
                 <hr />
               </div>
             );

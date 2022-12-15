@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import CounterPage from './pages/counter';
 import HomePage from './pages/home';
 import Person from './pages/person';

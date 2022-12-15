@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './layout';
 import store from './store/index'
+import './utils/i18n';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

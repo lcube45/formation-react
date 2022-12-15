@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/'
 import { increment, decrement, incrementByAmount, decrementByAmount, resetCounter } from '../../reducers/counter';
 
@@ -7,7 +7,6 @@ const Counter: React.FC = () => {
 
     const { counterValue } = useAppSelector((state) => state.counter);
     const dispatch = useAppDispatch();
-    const [incAmount, setIncAmount] = useState(10);
 
     return(
         <blockquote>

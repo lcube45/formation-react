@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Data from '../service/service';
-import Character from '../service/model';
 import Detail from '../features/detail';
-import axios from 'axios';
-import Person from '../service/model';
 import { useAppDispatch, useAppSelector } from '../store';
 import { getPersonById } from '../reducers/persons';
 
@@ -19,7 +15,7 @@ const PersonPage: React.FC<PersonPageProps> = (props: PersonPageProps) => {
     const {id} = useParams()
 
     useEffect(() => {        
-        if(Number(id) != person?.id) {
+        if(Number(id) !== person?.id) {
             dispatch(getPersonById(Number(id)));
         }
     }, [id])

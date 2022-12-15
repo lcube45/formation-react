@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useFormik } from 'formik';
-import Data from '../../service/service';
 import * as Yup from 'yup'
 
 const MyFormSchema = Yup.object().shape({
@@ -12,8 +11,6 @@ interface FormProps {
 }
 
 const MyForm: React.FC<FormProps> = (props: FormProps) => {
-
-    const data = new Data();
 
     const formik = useFormik({
         initialValues: {
